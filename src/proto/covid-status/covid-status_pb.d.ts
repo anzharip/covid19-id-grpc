@@ -24,8 +24,35 @@ export namespace EmptyRequest {
 }
 
 export class CovidStatusResponse extends jspb.Message { 
-    getMessage(): string;
-    setMessage(value: string): CovidStatusResponse;
+    getCountry(): string;
+    setCountry(value: string): CovidStatusResponse;
+
+    getCountryCode(): string;
+    setCountryCode(value: string): CovidStatusResponse;
+
+    getSlug(): string;
+    setSlug(value: string): CovidStatusResponse;
+
+    getNewConfirmed(): number;
+    setNewConfirmed(value: number): CovidStatusResponse;
+
+    getTotalConfirmed(): number;
+    setTotalConfirmed(value: number): CovidStatusResponse;
+
+    getNewDeaths(): number;
+    setNewDeaths(value: number): CovidStatusResponse;
+
+    getTotalDeaths(): number;
+    setTotalDeaths(value: number): CovidStatusResponse;
+
+    getNewRecovered(): number;
+    setNewRecovered(value: number): CovidStatusResponse;
+
+    getTotalRecovered(): number;
+    setTotalRecovered(value: number): CovidStatusResponse;
+
+    getDate(): string;
+    setDate(value: string): CovidStatusResponse;
 
 
     serializeBinary(): Uint8Array;
@@ -40,6 +67,15 @@ export class CovidStatusResponse extends jspb.Message {
 
 export namespace CovidStatusResponse {
     export type AsObject = {
-        message: string,
+        country: string,
+        countryCode: string,
+        slug: string,
+        newConfirmed: number,
+        totalConfirmed: number,
+        newDeaths: number,
+        totalDeaths: number,
+        newRecovered: number,
+        totalRecovered: number,
+        date: string,
     }
 }

@@ -189,7 +189,16 @@ proto.covidstatus.CovidStatusResponse.prototype.toObject = function(opt_includeI
  */
 proto.covidstatus.CovidStatusResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    message: jspb.Message.getFieldWithDefault(msg, 1, "")
+    country: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    countryCode: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    slug: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    newConfirmed: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    totalConfirmed: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    newDeaths: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    totalDeaths: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    newRecovered: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    totalRecovered: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    date: jspb.Message.getFieldWithDefault(msg, 10, "")
   };
 
   if (includeInstance) {
@@ -228,7 +237,43 @@ proto.covidstatus.CovidStatusResponse.deserializeBinaryFromReader = function(msg
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setMessage(value);
+      msg.setCountry(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setCountryCode(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSlug(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNewConfirmed(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setTotalConfirmed(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNewDeaths(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setTotalDeaths(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setNewRecovered(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setTotalRecovered(value);
+      break;
+    case 10:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDate(value);
       break;
     default:
       reader.skipField();
@@ -259,10 +304,73 @@ proto.covidstatus.CovidStatusResponse.prototype.serializeBinary = function() {
  */
 proto.covidstatus.CovidStatusResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getMessage();
+  f = message.getCountry();
   if (f.length > 0) {
     writer.writeString(
       1,
+      f
+    );
+  }
+  f = message.getCountryCode();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getSlug();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getNewConfirmed();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
+      f
+    );
+  }
+  f = message.getTotalConfirmed();
+  if (f !== 0) {
+    writer.writeInt32(
+      5,
+      f
+    );
+  }
+  f = message.getNewDeaths();
+  if (f !== 0) {
+    writer.writeInt32(
+      6,
+      f
+    );
+  }
+  f = message.getTotalDeaths();
+  if (f !== 0) {
+    writer.writeInt32(
+      7,
+      f
+    );
+  }
+  f = message.getNewRecovered();
+  if (f !== 0) {
+    writer.writeInt32(
+      8,
+      f
+    );
+  }
+  f = message.getTotalRecovered();
+  if (f !== 0) {
+    writer.writeInt32(
+      9,
+      f
+    );
+  }
+  f = message.getDate();
+  if (f.length > 0) {
+    writer.writeString(
+      10,
       f
     );
   }
@@ -270,10 +378,10 @@ proto.covidstatus.CovidStatusResponse.serializeBinaryToWriter = function(message
 
 
 /**
- * optional string message = 1;
+ * optional string country = 1;
  * @return {string}
  */
-proto.covidstatus.CovidStatusResponse.prototype.getMessage = function() {
+proto.covidstatus.CovidStatusResponse.prototype.getCountry = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -282,8 +390,170 @@ proto.covidstatus.CovidStatusResponse.prototype.getMessage = function() {
  * @param {string} value
  * @return {!proto.covidstatus.CovidStatusResponse} returns this
  */
-proto.covidstatus.CovidStatusResponse.prototype.setMessage = function(value) {
+proto.covidstatus.CovidStatusResponse.prototype.setCountry = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string country_code = 2;
+ * @return {string}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getCountryCode = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setCountryCode = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string slug = 3;
+ * @return {string}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getSlug = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setSlug = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional int32 new_confirmed = 4;
+ * @return {number}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getNewConfirmed = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setNewConfirmed = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional int32 total_confirmed = 5;
+ * @return {number}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getTotalConfirmed = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setTotalConfirmed = function(value) {
+  return jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * optional int32 new_deaths = 6;
+ * @return {number}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getNewDeaths = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setNewDeaths = function(value) {
+  return jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
+ * optional int32 total_deaths = 7;
+ * @return {number}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getTotalDeaths = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setTotalDeaths = function(value) {
+  return jspb.Message.setProto3IntField(this, 7, value);
+};
+
+
+/**
+ * optional int32 new_recovered = 8;
+ * @return {number}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getNewRecovered = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setNewRecovered = function(value) {
+  return jspb.Message.setProto3IntField(this, 8, value);
+};
+
+
+/**
+ * optional int32 total_recovered = 9;
+ * @return {number}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getTotalRecovered = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setTotalRecovered = function(value) {
+  return jspb.Message.setProto3IntField(this, 9, value);
+};
+
+
+/**
+ * optional string date = 10;
+ * @return {string}
+ */
+proto.covidstatus.CovidStatusResponse.prototype.getDate = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.covidstatus.CovidStatusResponse} returns this
+ */
+proto.covidstatus.CovidStatusResponse.prototype.setDate = function(value) {
+  return jspb.Message.setProto3StringField(this, 10, value);
 };
 
 

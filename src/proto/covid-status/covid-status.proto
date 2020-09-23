@@ -10,5 +10,14 @@ message EmptyRequest {
 }
 
 message CovidStatusResponse {
-  string message = 1;
+  string country = 1;
+  string country_code = 2;
+  string slug = 3;
+  int32 new_confirmed = 4;
+  int32 total_confirmed = 5;
+  int32 new_deaths = 6;
+  int32 total_deaths = 7;
+  int32 new_recovered = 8;
+  int32 total_recovered = 9;
+  string date = 10;
 }
