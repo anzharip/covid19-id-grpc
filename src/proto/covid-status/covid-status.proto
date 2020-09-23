@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package covidstatus;
+
+service CovidStatus {
+  rpc getCovidStatus (EmptyRequest) returns (CovidStatusResponse) {}
+}
+
+message EmptyRequest {
+}
+
+message CovidStatusResponse {
+  string message = 1;
+}
