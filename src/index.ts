@@ -1,54 +1,44 @@
 import * as grpc from '@grpc/grpc-js';
-import * as http from 'https';
+import Axios from 'axios';
+import { CovidStatusService } from './proto/covid-status/covid-status_grpc_pb';
+import { CovidStatusResponse } from './proto/covid-status/covid-status_pb';
 
-import { CovidStatusResponse, EmptyRequest } from './proto/covid-status/covid-status_pb';
-import { CovidStatusService, ICovidStatusClient, ICovidStatusServer, ICovidStatusService } from './proto/covid-status/covid-status_grpc_pb';
-// import { CovidSummary } from './db';
+// Store covidSummaryIndonesia info in-memory
+var covidSummaryIndonesia: any;
 
-async function getCovidStatus(call: grpc.ServerUnaryCall<any, any>, callback: grpc.sendUnaryData<CovidStatusResponse>) {
-    const covidStatusResponse = new CovidStatusResponse();
 
-    const options = {
-        "method": "GET",
-        "hostname": "api.covid19api.com",
-        "port": null,
-        "path": "/summary",
-        "headers": {
-            "content-length": "0"
-        }
-    };
-
-    let covidSummary: any = {};
-
-    const req = http.request(options, (res) => {
-        const chunks: any[] = [];
-
-        res.on("data", function (chunk) {
-            chunks.push(chunk);
-        });
-
-        res.on("end", () => {
-            const body = Buffer.concat(chunks);
-            // console.log(body.toString());
-            covidSummary = JSON.parse(body.toString('utf-8'));
-
-            const covidSummaryIndonesia = covidSummary.Countries.find((i: { CountryCode: string; }) => i.CountryCode === 'ID')
-
-            covidStatusResponse.setCountry(covidSummaryIndonesia.Country)
-            covidStatusResponse.setCountryCode(covidSummaryIndonesia.CountryCode)
-            covidStatusResponse.setSlug(covidSummaryIndonesia.Slug)
-            covidStatusResponse.setNewConfirmed(covidSummaryIndonesia.NewConfirmed)
-            covidStatusResponse.setTotalConfirmed(covidSummaryIndonesia.TotalConfirmed)
-            covidStatusResponse.setNewDeaths(covidSummaryIndonesia.NewDeaths)
-            covidStatusResponse.setTotalDeaths(covidSummaryIndonesia.TotalDeaths)
-            covidStatusResponse.setNewRecovered(covidSummaryIndonesia.NewRecovered)
-            covidStatusResponse.setTotalRecovered(covidSummaryIndonesia.TotalRecovered)
-            covidStatusResponse.setDate(covidSummaryIndonesia.Date)
-            callback(null, covidStatusResponse);
-
-        });
+const httpRequest = () => {
+    Axios.get('https://api.covid19api.com/summary').then((value) => {
+        const covidSummary = value.data
+        covidSummaryIndonesia = covidSummary.Countries.find((i: { CountryCode: string; }) => i.CountryCode === 'ID')
+        console.log('Retrieving data... ');
+    }).catch((err) => {
+        console.log(err);
     });
-    req.end();
+}
+
+// Initial retrieval
+httpRequest()
+
+// Retrieve data every 3 hours
+setInterval(async () => {
+    httpRequest();
+}, 10800000)
+
+
+const getCovidStatus = async (call: grpc.ServerUnaryCall<any, any>, callback: grpc.sendUnaryData<CovidStatusResponse>) => {
+    const covidStatusResponse = new CovidStatusResponse();
+    covidStatusResponse.setCountry(covidSummaryIndonesia.Country)
+    covidStatusResponse.setCountryCode(covidSummaryIndonesia.CountryCode)
+    covidStatusResponse.setSlug(covidSummaryIndonesia.Slug)
+    covidStatusResponse.setNewConfirmed(covidSummaryIndonesia.NewConfirmed)
+    covidStatusResponse.setTotalConfirmed(covidSummaryIndonesia.TotalConfirmed)
+    covidStatusResponse.setNewDeaths(covidSummaryIndonesia.NewDeaths)
+    covidStatusResponse.setTotalDeaths(covidSummaryIndonesia.TotalDeaths)
+    covidStatusResponse.setNewRecovered(covidSummaryIndonesia.NewRecovered)
+    covidStatusResponse.setTotalRecovered(covidSummaryIndonesia.TotalRecovered)
+    covidStatusResponse.setDate(covidSummaryIndonesia.Date)
+    callback(null, covidStatusResponse);
 }
 
 function main() {
@@ -56,7 +46,7 @@ function main() {
     server.addService(CovidStatusService, {
         getCovidStatus: getCovidStatus
     });
-    server.bindAsync('0.0.0.0:10080', grpc.ServerCredentials.createInsecure(), function (err, port) {
+    server.bindAsync('0.0.0.0:10080', grpc.ServerCredentials.createInsecure(), function (err: any, port: any) {
         try {
             if (err) {
                 throw err
@@ -68,5 +58,6 @@ function main() {
         }
     });
 }
+
 
 main();
